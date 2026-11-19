@@ -1,0 +1,3 @@
+Bienvenido a EchoLocal, una herramienta de voz que funciona por completo en tu ordenador.
+Escribe una frase en cada línea, y cada línea se convierte en un clip breve.
+Cuando la voz suene bien, prueba otro idioma.

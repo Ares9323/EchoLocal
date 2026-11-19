@@ -1,0 +1,3 @@
+Benvenuto in EchoLocal, uno strumento per la voce che funziona tutto sul tuo computer.
+Scrivi una frase per riga, e ogni riga diventa una breve clip.
+Quando la voce suona bene, prova un'altra lingua.

@@ -1,0 +1,3 @@
+Welcome to EchoLocal, a voice tool that runs entirely on your computer.
+Write a sentence on each line, and every line becomes a short clip.
+When the voice sounds right, try another language.

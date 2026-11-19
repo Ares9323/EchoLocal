@@ -1,0 +1,21 @@
+# Virtual environments and models: rebuilt / downloaded by setup
+Chatterbox/venv/
+Chatterbox/models/
+Whisper/venv/
+Whisper/models/
+WebUI/models/
+
+# Personal data: voice samples and results
+voices/*
+!voices/README.md
+outputs/
+
+# Local notes for coding agents
+CLAUDE.md
+AGENTS.md
+.claude/
+
+__pycache__/
+*.pyc
+.DS_Store
+Thumbs.db
