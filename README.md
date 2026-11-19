@@ -67,7 +67,9 @@ downloaded. If a download is interrupted, run it again to resume.
 
 ## Add a voice
 
-Put an audio file (wav, m4a, mp3, flac, ogg) in `voices/`. The file name is the voice name. A good
+Put an audio file (wav, m4a, mp3, flac, ogg) in `voices/`, or record one in the web interface
+(*Record a new voice*: it is saved in `voices/` under the name you give it). The file name is the
+voice name. A good
 sample is 5-15 s of one person speaking naturally, without music or other voices. Only the first
 10 s are used, and silence at both ends is trimmed automatically. Microphone and room end up in
 the cloned voice, so they matter as much as the speaker.

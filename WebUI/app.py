@@ -16,6 +16,8 @@ Voices are the audio files in voices/. A job is saved as outputs/<title>/<title>
 import argparse
 import json
 import os
+import re
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -31,6 +33,7 @@ import tts  # noqa: E402  (sets HF_HOME / offline mode before anything imports h
 import translate  # noqa: E402
 
 import gradio as gr  # noqa: E402
+import soundfile as sf  # noqa: E402
 from ui_strings import I18N, label, locale_of, t  # noqa: E402
 
 LANGS = list(tts.SUPPORTED_LANGUAGES.items())  # [(code, English name)]
@@ -272,6 +275,15 @@ def build():
                     preview = gr.Audio(value=str(tts.VOICES_DIR / first_voice) if first_voice else None,
                                        label=label("voice_sample"), type="filepath", interactive=False, scale=3)
                 no_voices = gr.Markdown(label("no_voices"), visible=not voices)
+                with gr.Accordion(label("rec_title"), open=not voices):
+                    gr.Markdown(label("rec_hint"))
+                    with gr.Row():
+                        rec_audio = gr.Audio(sources=["microphone"], type="filepath", label=label("rec_audio"),
+                                             scale=3)
+                        with gr.Column(scale=2):
+                            rec_name = gr.Textbox(label=label("rec_name"))
+                            rec_save = gr.Button(label("rec_save"))
+                    rec_status = gr.Markdown()
                 with gr.Row():
                     src = gr.Dropdown(LANG_CHOICES, value="en", label=label("src_lang"))
                     targets = gr.CheckboxGroup(LANG_CHOICES, value=["en"], label=label("out_langs"))
@@ -341,6 +353,24 @@ def build():
             value = v if v in names else (names[0] if names else None)
             return gr.Dropdown(choices=names, value=value), gr.Markdown(visible=not names)
 
+        def save_recording(audio, name, loc):
+            """Copy a microphone recording into voices/<name>.wav and select it."""
+            if not audio:
+                raise gr.Error(t(loc, "err_rec_none"))
+            stem = re.sub(r"[^\w\-]+", "_", (name or "").strip()).strip("_")
+            if not stem:
+                raise gr.Error(t(loc, "err_rec_name"))
+            if any(Path(v).stem.lower() == stem.lower() for v in voice_names()):
+                raise gr.Error(t(loc, "err_rec_exists", name=stem))
+            seconds = sf.info(audio).duration
+            if seconds < 5:
+                raise gr.Error(t(loc, "err_rec_short", seconds=seconds))
+            tts.VOICES_DIR.mkdir(exist_ok=True)
+            target = tts.VOICES_DIR / f"{stem}{Path(audio).suffix.lower() or '.wav'}"
+            shutil.copyfile(audio, target)
+            return (gr.Dropdown(choices=voice_names(), value=target.name), gr.Markdown(visible=False),
+                    None, "", t(loc, "rec_saved", name=target.name))
+
         def use_transcript(text_value, lang_value):
             src_update = gr.Dropdown(value=lang_value) if lang_value in CODES else gr.Dropdown()
             return text_value, src_update, gr.Tabs(selected="tts")
@@ -351,6 +381,8 @@ def build():
         demo.load(on_load, None, [locale, src, targets, mode, stt_lang], **fast)
         voice.change(on_voice, voice, preview, **fast)
         refresh.click(on_refresh, voice, [voice, no_voices], **fast)
+        rec_save.click(save_recording, [rec_audio, rec_name, locale],
+                       [voice, no_voices, rec_audio, rec_name, rec_status], **fast)
         src.change(box_updates, [src, targets], boxes, **fast)
         targets.change(box_updates, [src, targets], boxes, **fast)
         use_btn.click(use_transcript, [transcript, detected], [text, src, tabs], **fast)

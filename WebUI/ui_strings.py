@@ -17,9 +17,21 @@ STRINGS = {
         "voice": "Voice (files in the voices folder)",
         "refresh": "Refresh voice list",
         "voice_sample": "Voice sample",
-        "no_voices": "**No voices yet.** Put a clean 5-15 s recording of the voice to clone in the `voices` "
+        "no_voices": "**No voices yet.** Record one below, or put a clean 5-15 s recording of the voice to clone in the `voices` "
                      "folder (wav, m4a, mp3, flac, ogg; the file name is the voice name), then click "
                      "*Refresh voice list*. Only clone voices you have permission to use.",
+        "rec_title": "Record a new voice",
+        "rec_hint": "Read a few sentences aloud for 10-15 s, in your normal voice, in a quiet room and close to "
+                    "the microphone (only the first 10 s are used). The first time, the browser asks for "
+                    "permission to use the microphone. Only record voices you have permission to use.",
+        "rec_audio": "Recording",
+        "rec_name": "Voice name",
+        "rec_save": "Save as voice",
+        "rec_saved": "Saved as `{name}` in the voices folder, and selected.",
+        "err_rec_none": "Record something first.",
+        "err_rec_name": "Give the voice a name.",
+        "err_rec_exists": "A voice named {name} already exists: pick another name.",
+        "err_rec_short": "The recording is only {seconds:.1f} s long: record at least 5 s, better 10-15.",
         "src_lang": "Language of the text",
         "out_langs": "Output languages",
         "text": "Text, one sentence per line",
@@ -85,9 +97,21 @@ STRINGS = {
         "voice": "Voce (file nella cartella voices)",
         "refresh": "Aggiorna l'elenco delle voci",
         "voice_sample": "Campione della voce",
-        "no_voices": "**Nessuna voce.** Metti nella cartella `voices` una registrazione pulita di 5-15 s "
+        "no_voices": "**Nessuna voce.** Registrane una qui sotto, oppure metti nella cartella `voices` una registrazione pulita di 5-15 s "
                      "della voce da clonare (wav, m4a, mp3, flac, ogg; il nome del file è il nome della voce), "
                      "poi premi *Aggiorna l'elenco delle voci*. Clona solo voci che hai il permesso di usare.",
+        "rec_title": "Registra una nuova voce",
+        "rec_hint": "Leggi ad alta voce qualche frase per 10-15 s, con la tua voce normale, in una stanza "
+                    "silenziosa e vicino al microfono (si usano solo i primi 10 s). La prima volta il browser "
+                    "chiede il permesso di usare il microfono. Registra solo voci che hai il permesso di usare.",
+        "rec_audio": "Registrazione",
+        "rec_name": "Nome della voce",
+        "rec_save": "Salva come voce",
+        "rec_saved": "Salvata come `{name}` nella cartella voices, e selezionata.",
+        "err_rec_none": "Registra prima qualcosa.",
+        "err_rec_name": "Dai un nome alla voce.",
+        "err_rec_exists": "Esiste già una voce che si chiama {name}: scegli un altro nome.",
+        "err_rec_short": "La registrazione dura solo {seconds:.1f} s: registra almeno 5 s, meglio 10-15.",
         "src_lang": "Lingua del testo",
         "out_langs": "Lingue di uscita",
         "text": "Testo, una frase per riga",
